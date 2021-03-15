@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="template.css">
+    <title>Articles List</title>
+    <script src="solution.js"></script>
+</head>
+
+<body>
+    <h4>Create a functionality which creates articles and appends them into some article section.</h4>
+    <div id="createArticle">
+        <label for="createTitle">Title</label>
+        <input id="createTitle" /><br>
+        <label for="createContent">Content</label>
+        <textarea id="createContent"></textarea>
+        <button onclick="createArticle()">Create</button>
+    </div>
+    <section id="articles">
+        <h1>Articles List</h1>
+    </section>
+    <script>
+        function createArticle() {
+            let placeToAppedArticles = document.getElementById("articles");
+            let articleElement = document.createElement("article");
+
+            let articleHead = document.createElement("h3");
+            let content = document.createElement("p");
+
+            let titleContent = document.getElementById("createTitle");
+            let contentTextarea = document.getElementById("createContent");
+
+            articleHead.innerHTML = titleContent.value;
+            content.innerHTML = contentTextarea.value;
+
+            articleElement.appendChild(articleHead);
+            articleElement.appendChild(content);
+
+            if (titleContent.value.length !== 0 && contentTextarea.value.length !== 0) {
+                placeToAppedArticles.appendChild(articleElement);
+                titleContent.value = "";
+                contentTextarea.value = "";
+            }
+
+        }
+    </script>
+</body>
+
+</html>
