@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,
+        th {
+            border: groove;
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+
+        td,
+        th {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper"></div>
+    <script>
+        function tableLayoutInformation(input) {
+            let dataValues = JSON.parse(input)
+            let length = Object.keys(dataValues).length
+            let tableHeadContent = "";
+            let tableBodyContent = "";
+
+            for (let i = 0; i < dataValues.length; i++) {
+
+                tableHeadContent += "   <tr>" + Object.keys(dataValues[i]).map(x => { if (!tableHeadContent.includes(`<th>${escapeHtml(x)}</th>`)) { return `<th>${escapeHtml(x)}</th>` } }).join("") + "</tr>"
+                tableBodyContent += "   <tr>" + Object.values(dataValues[i]).map(x => { return `<td>${escapeHtml(x)}</td>` }).join("") + "</tr>\n"
+
+
+            }
+            let pattern = /<tr[\s\S]<\/tr>/g;
+            let output = `<table>\n${tableHeadContent}\n${tableBodyContent}</table>`.replace(pattern, "");
+            return output
+            function escapeHtml(value) {
+                return value
+                    .toString()
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+            }
+
+
+        }
+
+        window.onload = function () {
+            let elementToHoldTable = document.getElementById("wrapper");
+            elementToHoldTable.innerHTML = tableLayoutInformation(['[{"Name":"Pesho <div>-a","Age":20,"City":"Sofia"},{"Name":"Gosho","Age":18,"City":"Plovdiv"},{"Name":"Angel","Age":18,"City":"Veliko Tarnovo"}]']);
+
+        }
+    </script>
+</body>
+
+</html>
