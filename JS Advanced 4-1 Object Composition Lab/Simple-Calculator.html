@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">Simple Calculator</h1>
+        <p>Enter two numbers</p><br>
+        <div class="input">
+            <label for="num1">Number-1</label> <br>
+            <input type="text" id="num1"> <br>
+            <label for="num2">Number-2</label> <br>
+            <input type="text" id="num2"> <br>
+            <hr>
+            <label for="result">Result is</label> <br>
+            <input type="text" id="result" readonly /><br>
+        </div>
+        <br>
+        <button id="sumButton">Sum</button>
+        <button id="subtractButton">Subtract</button>
+    </div>
+    <script>
+        function result() {
+            let objectField = {};
+            let functions = {
+                init(selector1, selector2, resultSelector) {
+                    objectField.firstField = document.querySelector(selector1),
+                    objectField.secondField = document.querySelector(selector2),
+                    objectField.resultField = document.querySelector(resultSelector)
+                },
+                add() {
+                    objectField.resultField.value = Number(objectField.firstField.value) + Number(objectField.secondField.value);
+                },
+                subtract() {
+                    objectField.resultField.value = Number(objectField.firstField.value) - Number(objectField.secondField.value);
+                }
+            }
+            return functions;
+        }
+        let obj = result();
+
+        obj.init("#num1", "#num2", '#result');
+        let num1 = document.querySelector('#num1')
+        let num2 = document.querySelector('#num2')
+        let res = document.querySelector('#result')
+        num1.value = 5;
+        num2.value = 3;
+        obj.add();
+        obj.subtract();
+    </script>
+</body>
+
+</html>
